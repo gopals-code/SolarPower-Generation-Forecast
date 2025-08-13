@@ -23,8 +23,8 @@ def load_model_and_scaler():
     """
     try:
         # Note: Ensure you are loading the RandomForest model saved from the notebook.
-        model = joblib.load("solar_Power_eneration_Forecasting_model.pkl")
-        scaler = joblib.load("scaler.pkl")
+        model = joblib.load("pkl/solar_Power_eneration_Forecasting_model.pkl")
+        scaler = joblib.load("pkl/scaler.pkl")
         return model, scaler
     except FileNotFoundError:
         st.error("Model or scaler file not found. Please check the file paths.")
@@ -41,7 +41,7 @@ def load_data():
     Update the file path to match the location on your system.
     """
     try:
-        data = pd.read_csv('Plant1_Merged_Dataset.csv', parse_dates=['DATE_TIME'])
+        data = pd.read_csv('data/Plant1_Merged_Dataset.csv', parse_dates=['DATE_TIME'])
         data.set_index('DATE_TIME', inplace=True)
         return data
     except FileNotFoundError:
@@ -139,5 +139,6 @@ if model and hasattr(model, 'feature_importances_'):
         st.bar_chart(importance_df.set_index('Feature'))
         st.markdown("`IRRADIATION` is clearly the most important factor, followed by temperatures and the time of day (`HOUR`).")
         
+
 
 
